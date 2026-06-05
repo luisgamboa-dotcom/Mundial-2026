@@ -1,0 +1,110 @@
+/* =========================================================
+   responsive.css — Breakpoints mobile-first
+   ========================================================= */
+
+/* Tablets y desktop (>= 768px) */
+@media (min-width: 768px) {
+  .hero__stats { gap: 24px; }
+  .match-card { grid-template-columns: auto 1fr auto auto; }
+  .bracket-rounds { grid-template-columns: repeat(2, 1fr); }
+  .footer__container { grid-template-columns: 1.5fr 1fr 1fr; }
+  .quiz-card { padding: 48px; }
+  .map-wrapper { height: 560px; }
+}
+
+/* Desktop (>= 1024px) */
+@media (min-width: 1024px) {
+  .teams-grid { grid-template-columns: repeat(6, 1fr); }
+  .venues-grid { grid-template-columns: repeat(3, 1fr); }
+  .bracket-rounds { grid-template-columns: repeat(3, 1fr); }
+  .countdown { gap: 20px; }
+  .countdown__item { padding: 24px 32px; min-width: 120px; }
+}
+
+/* Wide desktop (>= 1280px) */
+@media (min-width: 1280px) {
+  .bracket-rounds { grid-template-columns: repeat(4, 1fr); }
+}
+
+/* Móvil (< 768px) — ajustes finos */
+@media (max-width: 767px) {
+  :root { --nav-h: 64px; }
+
+  .navbar__menu {
+    position: fixed;
+    top: var(--nav-h);
+    left: 0; right: 0;
+    background: var(--c-blue);
+    flex-direction: column;
+    align-items: stretch;
+    padding: 16px;
+    margin: 0;
+    gap: 4px;
+    transform: translateY(-200%);
+    transition: transform var(--transition);
+    box-shadow: var(--shadow-lg);
+    max-height: calc(100vh - var(--nav-h));
+    overflow-y: auto;
+  }
+  .navbar__menu.is-open { transform: translateY(0); }
+  .navbar__menu a { padding: 12px 16px; text-align: left; }
+  .navbar__toggle { display: flex; }
+  .navbar__lang { margin-left: auto; }
+  .navbar__logo span { display: none; }
+
+  .countdown { gap: 8px; }
+  .countdown__item { padding: 12px 14px; min-width: 70px; }
+  .countdown__label { font-size: 0.62rem; }
+
+  .hero__stats { grid-template-columns: 1fr; gap: 12px; }
+  .stat-card { display: flex; align-items: center; justify-content: space-between; padding: 16px 20px; text-align: left; }
+  .stat-card__label { margin-top: 0; }
+
+  .hero__ctas { flex-direction: column; align-items: stretch; }
+  .hero__ctas .btn { width: 100%; }
+
+  .match-card {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    text-align: center;
+  }
+  .match-card__date { display: flex; align-items: baseline; justify-content: center; gap: 8px; }
+  .match-card__teams { justify-content: center; }
+  .match-card__info { text-align: center; }
+  .match-card__actions { flex-direction: row; justify-content: center; }
+
+  .teams-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .team-card { padding: 14px 10px; }
+  .team-card__flag { width: 50px; height: 38px; }
+  .team-card__name { font-size: 1.05rem; }
+
+  .matches-toolbar { grid-template-columns: 1fr; padding: 14px; }
+
+  .venues-grid { grid-template-columns: 1fr; }
+  .map-wrapper { height: 360px; }
+  .venues-layout { gap: 28px; }
+
+  .footer__container { grid-template-columns: 1fr; gap: 32px; text-align: center; }
+  .footer__brand { justify-content: center; }
+  .footer__col p { margin: 0 auto; }
+  .footer__social { justify-content: center; }
+
+  .quiz-card { padding: 24px 20px; }
+  .quiz-option { padding: 12px 14px; font-size: 0.92rem; }
+
+  .modal__dialog { padding: 24px 20px; }
+  .modal__teams { grid-template-columns: repeat(2, 1fr); }
+
+  .bracket-phase-btn { flex: 1 1 45%; font-size: 0.75rem; padding: 8px; }
+  .bracket-actions { flex-direction: column; }
+  .bracket-actions .btn { width: 100%; }
+
+  .countdown__value { font-size: 1.6rem; }
+  .hero__title { font-size: clamp(3rem, 14vw, 5rem); }
+  .section__title { font-size: 2rem; }
+}
+
+/* Hover solo en dispositivos con puntero fino (desktop) */
+@media (hover: hover) and (pointer: fine) {
+  .team-card:hover .team-card__overlay { opacity: 1; }
+}

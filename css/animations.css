@@ -1,0 +1,68 @@
+/* =========================================================
+   animations.css — Keyframes, reveal states, micro-interacciones
+   ========================================================= */
+
+/* Estado inicial para animaciones de scroll */
+.reveal { opacity: 0; transform: translateY(30px); }
+.reveal--left { transform: translateX(-30px); }
+.reveal--right { transform: translateX(30px); }
+.reveal--scale { transform: scale(0.92); }
+
+/* ============= Pulse / Glow ============= */
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+@keyframes glow {
+  0%, 100% { box-shadow: 0 0 20px var(--c-primary-30); }
+  50% { box-shadow: 0 0 40px var(--c-primary), 0 0 60px var(--c-primary-30); }
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.glow { animation: glow 2.4s ease-in-out infinite; }
+
+/* ============= Skeleton ============= */
+.skeleton {
+  background: linear-gradient(90deg, var(--c-blue-15) 0%, var(--c-light-60) 50%, var(--c-blue-15) 100%);
+  background-size: 200% 100%;
+  animation: shimmer 1.6s infinite;
+  border-radius: var(--radius-md);
+  min-height: 120px;
+}
+
+/* ============= Toast animación ============= */
+@keyframes toastIn {
+  from { transform: translateX(-50%) translateY(120%); opacity: 0; }
+  to { transform: translateX(-50%) translateY(0); opacity: 1; }
+}
+.toast.is-visible { animation: toastIn 0.35s ease-out forwards; }
+
+/* ============= Hover lift global ============= */
+.hover-lift { transition: transform var(--transition), box-shadow var(--transition); }
+.hover-lift:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+
+/* ============= Underline animado ============= */
+.link-underline { position: relative; }
+.link-underline::after {
+  content: ""; position: absolute;
+  left: 0; bottom: -4px;
+  width: 100%; height: 2px;
+  background: var(--c-primary);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform var(--transition);
+}
+.link-underline:hover::after { transform: scaleX(1); transform-origin: left; }
+
+/* ============= Card click feedback ============= */
+.team-card:active, .quiz-option:active, .match-card:active { transform: scale(0.98); }
+
+/* ============= Confetti / partículas ============= */
+.confetti-canvas { position: absolute; inset: 0; pointer-events: none; z-index: 1; }

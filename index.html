@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Vive la emoción del Mundial 2026 en Estados Unidos, México y Canadá. Equipos, partidos, estadios, predicciones y trivia del torneo más grande de la historia." data-i18n-attr="content:meta.description" />
+  <meta name="keywords" content="Mundial 2026, FIFA, fútbol, World Cup, USA, México, Canadá" />
+  <meta name="author" content="Mundial 2026" />
+  <meta name="theme-color" content="#2C4373" />
+  <link rel="canonical" href="https://mundial-2026.app/" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Mundial 2026 - La Copa del Mundo más grande de la historia" data-i18n-attr="content:meta.title" />
+  <meta property="og:description" content="Vive la emoción del Mundial 2026 en Estados Unidos, México y Canadá." data-i18n-attr="content:meta.description" />
+  <meta property="og:image" content="images/Logo_Mundial.jpg" />
+  <meta property="og:locale" content="es_ES" />
+  <meta property="og:locale:alternate" content="en_US" />
+  <meta property="og:url" content="https://mundial-2026.app/" />
+  <meta property="og:site_name" content="Mundial 2026" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Mundial 2026" />
+  <meta name="twitter:description" content="La Copa del Mundo más grande de la historia." />
+  <meta name="twitter:image" content="images/Logo_Mundial.jpg" />
+
+  <title data-i18n="meta.title">Mundial 2026 - La Copa del Mundo más grande de la historia</title>
+
+  <link rel="icon" type="image/jpg" href="images/Logo_Mundial.jpg" />
+  <link rel="apple-touch-icon" href="images/Logo_Mundial.jpg" />
+
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+
+  <!-- Estilos del proyecto (mobile-first) -->
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/components.css" />
+  <link rel="stylesheet" href="css/animations.css" />
+  <link rel="stylesheet" href="css/responsive.css" />
+</head>
+<body>
+  <a href="#main" class="skip-link" data-i18n="a11y.skipToContent">Saltar al contenido</a>
+
+  <!-- ============== HEADER ============== -->
+  <header class="site-header" id="home">
+    <nav class="navbar" aria-label="Navegación principal">
+      <a href="#home" class="navbar__logo" aria-label="Mundial 2026 - Inicio">
+        <img src="images/Logo_Mundial.jpg" alt="Logo Mundial 2026" width="36" height="36" />
+        <span>Mundial 2026</span>
+      </a>
+
+      <button class="navbar__toggle" id="navToggle" aria-label="Abrir menú" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+
+      <ul class="navbar__menu" id="navMenu">
+        <li><a href="#home" data-i18n="nav.home">Inicio</a></li>
+        <li><a href="#teams" data-i18n="nav.teams">Equipos</a></li>
+        <li><a href="#matches" data-i18n="nav.matches">Partidos</a></li>
+        <li><a href="#venues" data-i18n="nav.venues">Sedes</a></li>
+        <li><a href="#bracket" data-i18n="nav.bracket">Predicción</a></li>
+        <li><a href="#quiz" data-i18n="nav.quiz">Trivia</a></li>
+        <li><a href="#news" data-i18n="nav.news">Noticias</a></li>
+      </ul>
+
+      <div class="navbar__lang" role="group" aria-label="Selector de idioma">
+        <button class="lang-btn lang-btn--active" data-lang="es" aria-pressed="true">ES</button>
+        <button class="lang-btn" data-lang="en" aria-pressed="false">EN</button>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main">
+    <!-- ============== HERO CINEMATOGRÁFICO ============== -->
+    <section class="hero" aria-labelledby="heroTitle">
+      <div class="hero__bg" aria-hidden="true"></div>
+      <canvas id="heroParticles" class="hero__canvas" aria-hidden="true"></canvas>
+
+      <div class="hero__content">
+        <span class="hero__eyebrow" data-anim>FIFA WORLD CUP · 2026</span>
+        <h1 id="heroTitle" class="hero__title" data-anim>ROAD TO 2026</h1>
+        <p class="hero__subtitle" data-anim data-i18n="hero.subtitle">La Copa del Mundo más grande de la historia</p>
+
+        <div class="hero__countdown" data-anim aria-live="polite">
+          <p class="hero__countdown-label" data-i18n="hero.countdown">Faltan para el partido inaugural</p>
+          <div class="countdown">
+            <div class="countdown__item">
+              <span class="countdown__value" id="cdDays">00</span>
+              <span class="countdown__label" data-i18n="hero.days">Días</span>
+            </div>
+            <div class="countdown__item">
+              <span class="countdown__value" id="cdHours">00</span>
+              <span class="countdown__label" data-i18n="hero.hours">Horas</span>
+            </div>
+            <div class="countdown__item">
+              <span class="countdown__value" id="cdMinutes">00</span>
+              <span class="countdown__label" data-i18n="hero.minutes">Minutos</span>
+            </div>
+            <div class="countdown__item">
+              <span class="countdown__value" id="cdSeconds">00</span>
+              <span class="countdown__label" data-i18n="hero.seconds">Segundos</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero__stats" data-anim>
+          <div class="stat-card">
+            <div class="stat-card__value" data-count="48">0</div>
+            <div class="stat-card__label" data-i18n="stats.teams">Selecciones</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card__value" data-count="104">0</div>
+            <div class="stat-card__label" data-i18n="stats.matches">Partidos</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card__value" data-count="16">0</div>
+            <div class="stat-card__label" data-i18n="stats.cities">Ciudades sede</div>
+          </div>
+        </div>
+
+        <div class="hero__ctas" data-anim>
+          <a href="#matches" class="btn btn--primary" data-hero-cta="primary" data-i18n="hero.ctaPrimary">Ver partidos</a>
+          <a href="#bracket" class="btn btn--secondary" data-hero-cta="secondary" data-i18n="hero.ctaSecondary">Haz tu predicción</a>
+        </div>
+
+        <button class="hero__choose-team" id="heroChooseTeam" data-anim type="button">
+          <span data-i18n="hero.chooseTeam">Elige tu selección</span>
+        </button>
+      </div>
+
+      <div class="hero__scroll-hint" aria-hidden="true">SCROLL</div>
+    </section>
+
+    <!-- ============== EQUIPOS ============== -->
+    <section class="section" id="teams" aria-labelledby="teamsTitle">
+      <header class="section__header">
+        <h2 id="teamsTitle" class="section__title" data-i18n="sections.teams.title">Equipos Clasificados</h2>
+        <p class="section__subtitle" data-i18n="sections.teams.subtitle">Conoce a las 48 selecciones que lucharán por la gloria</p>
+      </header>
+
+      <div class="teams-toolbar" id="teamsFilter" role="tablist" aria-label="Filtro de grupos"></div>
+
+      <div class="teams-grid" id="teamsGrid" role="list">
+        <!-- Skeletons durante la hidratación -->
+        <div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div>
+        <div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div>
+      </div>
+    </section>
+
+    <!-- ============== PARTIDOS ============== -->
+    <section class="section section--alt" id="matches" aria-labelledby="matchesTitle">
+      <header class="section__header">
+        <h2 id="matchesTitle" class="section__title" data-i18n="sections.matches.title">Partidos y Fechas</h2>
+        <p class="section__subtitle" data-i18n="sections.matches.subtitle">Calendario completo del torneo · agrega los partidos a tu calendario</p>
+      </header>
+
+      <div class="matches-toolbar" id="matchesToolbar"></div>
+
+      <div class="matches-list" id="matchesList">
+        <div class="skeleton" style="height:80px"></div>
+        <div class="skeleton" style="height:80px"></div>
+        <div class="skeleton" style="height:80px"></div>
+      </div>
+    </section>
+
+    <!-- ============== SEDES Y MAPA ============== -->
+    <section class="section" id="venues" aria-labelledby="venuesTitle">
+      <header class="section__header">
+        <h2 id="venuesTitle" class="section__title" data-i18n="sections.venues.title">Sedes del Torneo</h2>
+        <p class="section__subtitle" data-i18n="sections.venues.subtitle">16 ciudades anfitrionas en 3 países</p>
+      </header>
+
+      <div class="venues-layout">
+        <div class="map-wrapper">
+          <div id="map" style="width:100%;height:100%"></div>
+        </div>
+        <div class="venues-grid" id="venuesGrid"></div>
+      </div>
+    </section>
+
+    <!-- ============== BRACKET PREDICTOR ============== -->
+    <section class="section section--alt" id="bracket" aria-labelledby="bracketTitle">
+      <header class="section__header">
+        <h2 id="bracketTitle" class="section__title" data-i18n="sections.bracket.title">Haz tu Predicción</h2>
+        <p class="section__subtitle" data-i18n="sections.bracket.subtitle">Elige los ganadores fase por fase hasta coronar al campeón</p>
+      </header>
+
+      <div class="bracket-wrap">
+        <div class="bracket-phase-bar" id="bracketPhases" role="tablist">
+          <button class="bracket-phase-btn is-active" data-phase="groups" data-i18n="sections.bracket.groups">Fase de grupos</button>
+          <button class="bracket-phase-btn" data-phase="round32" data-i18n="sections.bracket.round32">Dieciseisavos</button>
+          <button class="bracket-phase-btn" data-phase="round16" data-i18n="sections.bracket.round16">Octavos</button>
+          <button class="bracket-phase-btn" data-phase="qf" data-i18n="sections.bracket.qf">Cuartos</button>
+          <button class="bracket-phase-btn" data-phase="sf" data-i18n="sections.bracket.sf">Semifinales</button>
+          <button class="bracket-phase-btn" data-phase="final" data-i18n="sections.bracket.final">Final</button>
+        </div>
+
+        <div id="bracketStage">
+          <div class="bracket-stage is-active" data-stage="groups">
+            <p class="bracket-hint" data-i18n="sections.bracket.pickFromEach">Selecciona los 2 clasificados de cada grupo</p>
+            <div class="bracket-groups" id="bracketGroups"></div>
+          </div>
+          <div class="bracket-stage" data-stage="round32">
+            <p class="bracket-hint" data-i18n="sections.bracket.pickWinners">Selecciona los ganadores de cada cruce</p>
+            <div class="bracket-rounds" id="bracketRound32"></div>
+          </div>
+          <div class="bracket-stage" data-stage="round16">
+            <div class="bracket-rounds" id="bracketRound16"></div>
+          </div>
+          <div class="bracket-stage" data-stage="qf">
+            <div class="bracket-rounds" id="bracketQF"></div>
+          </div>
+          <div class="bracket-stage" data-stage="sf">
+            <div class="bracket-rounds" id="bracketSF"></div>
+          </div>
+          <div class="bracket-stage" data-stage="final">
+            <div class="bracket-rounds" id="bracketFinalRound"></div>
+            <div class="bracket-champion" id="bracketChampion">
+              <p class="bracket-champion__label">🏆 <span data-i18n="sections.bracket.champion">Campeón</span> 🏆</p>
+              <div class="bracket-champion__team">
+                <img class="bracket-champion__flag" id="championFlag" alt="" />
+                <span class="bracket-champion__name" id="championName"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="bracket-actions">
+          <button class="btn btn--primary" id="bracketSave" data-i18n="sections.bracket.save">Guardar predicción</button>
+          <button class="btn btn--ghost" id="bracketShare" data-i18n="sections.bracket.share">Compartir como imagen</button>
+          <button class="btn btn--ghost" id="bracketReset" data-i18n="sections.bracket.reset">Reiniciar</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============== QUIZ ============== -->
+    <section class="section" id="quiz" aria-labelledby="quizTitle">
+      <header class="section__header">
+        <h2 id="quizTitle" class="section__title" data-i18n="sections.quiz.title">¿Cuánto sabes del Mundial?</h2>
+        <p class="section__subtitle" data-i18n="sections.quiz.subtitle">Demuestra tus conocimientos en este quiz</p>
+      </header>
+
+      <div id="quizContainer">
+        <div class="quiz-card">
+          <div class="skeleton" style="height:200px"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============== NOTICIAS (vacía) ============== -->
+    <!--
+      Sección placeholder para futuras implementaciones.
+      Propósito: feed de noticias del Mundial 2026 (artículos, comunicados, resultados del día).
+      Pendiente: definir API o CMS para el contenido.
+    -->
+    <section class="section section--alt section--empty" id="news" aria-labelledby="newsTitle">
+      <header class="section__header">
+        <h2 id="newsTitle" class="section__title" data-i18n="sections.news.title">Noticias</h2>
+        <p class="section__subtitle" data-i18n="sections.news.subtitle">Las últimas novedades del torneo</p>
+      </header>
+      <div class="empty-placeholder">
+        <span class="empty-placeholder__badge" data-i18n="sections.news.placeholder">Próximamente</span>
+        <p class="empty-placeholder__hint">Sección en desarrollo</p>
+      </div>
+    </section>
+
+    <!-- ============== TIENDA (vacía) ============== -->
+    <!--
+      Sección placeholder para futuras implementaciones.
+      Propósito: catálogo de productos oficiales (camisetas, balones, memorabilia).
+      Pendiente: integrar pasarela de pago y backend de inventario.
+    -->
+    <section class="section section--empty" id="shop" aria-labelledby="shopTitle">
+      <header class="section__header">
+        <h2 id="shopTitle" class="section__title" data-i18n="sections.shop.title">Tienda Oficial</h2>
+        <p class="section__subtitle" data-i18n="sections.shop.subtitle">Productos oficiales del Mundial 2026</p>
+      </header>
+      <div class="empty-placeholder">
+        <span class="empty-placeholder__badge" data-i18n="sections.shop.placeholder">En construcción</span>
+        <p class="empty-placeholder__hint">Sección en desarrollo</p>
+      </div>
+    </section>
+
+    <!-- ============== GALERÍA (vacía) ============== -->
+    <!--
+      Sección placeholder para futuras implementaciones.
+      Propósito: galería multimedia con fotos y videos del torneo.
+      Pendiente: definir proveedor de hosting de medios y CDN.
+    -->
+    <section class="section section--alt section--empty" id="gallery" aria-labelledby="galleryTitle">
+      <header class="section__header">
+        <h2 id="galleryTitle" class="section__title" data-i18n="sections.gallery.title">Galería Multimedia</h2>
+        <p class="section__subtitle" data-i18n="sections.gallery.subtitle">Imágenes y videos del torneo</p>
+      </header>
+      <div class="empty-placeholder">
+        <span class="empty-placeholder__badge" data-i18n="sections.gallery.placeholder">Próximamente</span>
+        <p class="empty-placeholder__hint">Sección en desarrollo</p>
+      </div>
+    </section>
+
+    <!-- ============== PATROCINADORES (vacía) ============== -->
+    <!--
+      Sección placeholder para futuras implementaciones.
+      Propósito: mostrar los patrocinadores oficiales del Mundial 2026.
+      Pendiente: confirmar marcas patrocinadoras y obtener logos oficiales.
+    -->
+    <section class="section section--empty" id="sponsors" aria-labelledby="sponsorsTitle">
+      <header class="section__header">
+        <h2 id="sponsorsTitle" class="section__title" data-i18n="sections.sponsors.title">Patrocinadores</h2>
+        <p class="section__subtitle" data-i18n="sections.sponsors.subtitle">Marcas que hacen posible el Mundial</p>
+      </header>
+      <div class="empty-placeholder">
+        <span class="empty-placeholder__badge" data-i18n="sections.sponsors.placeholder">En construcción</span>
+        <p class="empty-placeholder__hint">Sección en desarrollo</p>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============== FOOTER ============== -->
+  <footer class="site-footer" aria-labelledby="footerTitle">
+    <h2 id="footerTitle" class="visually-hidden">Pie de página</h2>
+    <div class="footer__container">
+      <div class="footer__col footer__col--about">
+        <div class="footer__brand">
+          <img src="images/Logo_Mundial.jpg" alt="Logo Mundial 2026" width="44" height="44" />
+          <span>Mundial 2026</span>
+        </div>
+        <p data-i18n="footer.about">El Mundial 2026 será el torneo más grande de la historia...</p>
+      </div>
+
+      <div class="footer__col">
+        <h3 class="footer__title" data-i18n="footer.links">Enlaces oficiales</h3>
+        <ul class="footer__list">
+          <li><a href="https://www.fifa.com" target="_blank" rel="noopener noreferrer" data-i18n="footer.fifa">FIFA.com</a></li>
+          <li><a href="https://www.ussoccer.com" target="_blank" rel="noopener noreferrer">US Soccer</a></li>
+          <li><a href="https://www.fmf.mx" target="_blank" rel="noopener noreferrer">FMF México</a></li>
+          <li><a href="https://www.canadasoccer.com" target="_blank" rel="noopener noreferrer">Canada Soccer</a></li>
+        </ul>
+      </div>
+
+      <div class="footer__col">
+        <h3 class="footer__title" data-i18n="footer.social">Síguenos</h3>
+        <ul class="footer__social" aria-label="Redes sociales">
+          <li>
+            <a href="#" aria-label="X / Twitter">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M18.244 2H21.5l-7.5 8.57L23 22h-6.95l-5.45-7.13L4.3 22H1.04l8.04-9.18L1 2h7.13l4.93 6.5L18.244 2Zm-1.22 18h1.93L7.07 4h-2L17.024 20Z"/></svg>
+            </a>
+          </li>
+          <li>
+            <a href="#" aria-label="Instagram">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>
+            </a>
+          </li>
+          <li>
+            <a href="#" aria-label="Facebook">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M22 12.07C22 6.51 17.52 2 12 2S2 6.51 2 12.07c0 4.99 3.66 9.13 8.44 9.93v-7.02H7.9v-2.91h2.54V9.84c0-2.51 1.49-3.9 3.78-3.9 1.1 0 2.24.2 2.24.2v2.47h-1.26c-1.24 0-1.63.78-1.63 1.57v1.89h2.78l-.45 2.91h-2.33V22c4.78-.8 8.43-4.94 8.43-9.93Z"/></svg>
+            </a>
+          </li>
+          <li>
+            <a href="#" aria-label="YouTube">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M23.5 6.2a3.02 3.02 0 0 0-2.13-2.14C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.37.56A3.02 3.02 0 0 0 .5 6.2 31.7 31.7 0 0 0 0 12a31.7 31.7 0 0 0 .5 5.8 3.02 3.02 0 0 0 2.13 2.14C4.5 20.5 12 20.5 12 20.5s7.5 0 9.37-.56a3.02 3.02 0 0 0 2.13-2.14c.33-1.9.5-3.83.5-5.8a31.7 31.7 0 0 0-.5-5.8ZM9.6 15.6V8.4l6.27 3.6L9.6 15.6Z"/></svg>
+            </a>
+          </li>
+          <li>
+            <a href="#" aria-label="TikTok">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5.8 20.1a6.34 6.34 0 0 0 10.86-4.43V8.5a8.16 8.16 0 0 0 4.77 1.52V6.66a4.85 4.85 0 0 1-1.84.03Z"/></svg>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer__legal">
+      <p data-i18n="footer.legal">© 2026 Mundial 2026. Todos los derechos reservados.</p>
+      <button class="footer__reset" id="footerReset" data-i18n="footer.reset">Resetear mis datos</button>
+    </div>
+  </footer>
+
+  <!-- ============== MODAL: ELEGIR SELECCIÓN ============== -->
+  <div class="modal" id="favModal" role="dialog" aria-labelledby="favModalTitle" aria-modal="true">
+    <div class="modal__dialog">
+      <button class="modal__close" type="button" aria-label="Cerrar">×</button>
+      <h2 class="modal__title" id="favModalTitle" data-i18n="modal.chooseTeam">¿A quién apoyas?</h2>
+      <p class="modal__hint" data-i18n="modal.chooseTeamHint">Tu selección tintará la UI y filtrará los partidos.</p>
+      <div class="modal__teams"></div>
+      <div class="modal__actions">
+        <button class="btn btn--ghost" data-modal-cancel data-i18n="modal.close">Cerrar</button>
+        <button class="btn btn--primary" data-modal-confirm data-i18n="modal.confirm">Apoyar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============== DATOS ESTRUCTURADOS SCHEMA.ORG ============== -->
+  <script type="application/ld+json" id="schemaSportsEvent">
+  {
+    "@context": "https://schema.org",
+    "@type": "SportsEvent",
+    "name": "FIFA World Cup 2026",
+    "alternateName": "Copa Mundial de la FIFA 2026",
+    "description": "La Copa Mundial de la FIFA 2026 será la XXIII edición del torneo más importante de fútbol. Se celebrará en Estados Unidos, México y Canadá con 48 selecciones participantes, 104 partidos y 16 ciudades sede.",
+    "startDate": "2026-06-11T20:00:00-05:00",
+    "endDate": "2026-07-19T17:00:00-05:00",
+    "eventStatus": "https://schema.org/EventScheduled",
+    "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+    "location": [
+      { "@type": "Place", "name": "MetLife Stadium", "address": "East Rutherford, New Jersey, USA", "geo": { "@type": "GeoCoordinates", "latitude": 40.8136, "longitude": -74.0744 } },
+      { "@type": "Place", "name": "Estadio Azteca", "address": "Ciudad de México, México", "geo": { "@type": "GeoCoordinates", "latitude": 19.3028, "longitude": -99.1505 } },
+      { "@type": "Place", "name": "BMO Field", "address": "Toronto, Ontario, Canadá", "geo": { "@type": "GeoCoordinates", "latitude": 43.6332, "longitude": -79.4186 } }
+    ],
+    "organizer": { "@type": "Organization", "name": "FIFA", "url": "https://www.fifa.com" },
+    "competitor": [
+      { "@type": "SportsTeam", "name": "Argentina", "sport": "Football" },
+      { "@type": "SportsTeam", "name": "Brasil", "sport": "Football" },
+      { "@type": "SportsTeam", "name": "Francia", "sport": "Football" },
+      { "@type": "SportsTeam", "name": "España", "sport": "Football" },
+      { "@type": "SportsTeam", "name": "Alemania", "sport": "Football" },
+      { "@type": "SportsTeam", "name": "México", "sport": "Football" }
+    ],
+    "sport": "Football",
+    "image": "images/Logo_Mundial.jpg"
+  }
+  </script>
+
+  <!-- ============== SCRIPTS (orden importa) ============== -->
+  <!-- Datos primero -->
+  <script defer src="data/teams.js"></script>
+  <script defer src="data/venues.js"></script>
+  <script defer src="data/matches.js"></script>
+  <!-- Idiomas -->
+  <script defer src="lang/es.js"></script>
+  <script defer src="lang/en.js"></script>
+  <!-- Módulos core -->
+  <script defer src="js/storage.js"></script>
+  <script defer src="js/i18n.js"></script>
+  <script defer src="js/countdown.js"></script>
+  <!-- GSAP + ScrollTrigger (CDN) -->
+  <script defer src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+  <!-- Leaflet -->
+  <script defer src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+          integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <!-- Módulos de la app -->
+  <script defer src="js/hero.js"></script>
+  <script defer src="js/teams.js"></script>
+  <script defer src="js/matches.js"></script>
+  <script defer src="js/map.js"></script>
+  <script defer src="js/bracket.js"></script>
+  <script defer src="js/quiz.js"></script>
+  <script defer src="js/main.js"></script>
+</body>
+</html>

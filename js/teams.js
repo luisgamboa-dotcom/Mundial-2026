@@ -70,7 +70,7 @@
         const groups = ['all', ...Array.from({ length: 12 }, (_, i) => String.fromCharCode(65 + i))];
         bar.innerHTML = groups.map(g => {
           const label = g === 'all' ? I18n.t('sections.teams.allGroups') : `${I18n.t('sections.teams.group')} ${g}`;
-          return `<button class="chip ${g === 'all' ? 'is-active' : ''}" data-group="${g}">${label}</button>`;
+          return `<button type="button" class="chip ${g === 'all' ? 'is-active' : ''}" data-group="${g}">${label}</button>`;
         }).join('');
       }
       if (bar._bound) return;

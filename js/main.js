@@ -72,11 +72,8 @@
     bindHeaderScroll() {
       const header = document.querySelector('.site-header');
       if (!header) return;
-      let last = 0;
       window.addEventListener('scroll', () => {
-        const y = window.scrollY;
-        header.classList.toggle('is-scrolled', y > 40);
-        last = y;
+        header.classList.toggle('is-scrolled', window.scrollY > 40);
       }, { passive: true });
     },
 

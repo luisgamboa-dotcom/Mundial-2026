@@ -103,15 +103,11 @@
       if (this.prefersReduced()) return;
       const hero = document.querySelector('.hero');
       const bg = document.querySelector('.hero__bg');
-      const title = document.querySelector('.hero__title');
       if (!hero) return;
 
       const onScroll = () => {
         const y = window.scrollY;
         if (bg) bg.style.transform = `translateY(${y * 0.3}px) scale(1.1)`;
-        if (title && this.hasGSAP()) {
-          gsap.to(title, { y: y * 0.15, duration: 0.4, ease: 'power2.out', overwrite: 'auto' });
-        }
       };
       window.addEventListener('scroll', onScroll, { passive: true });
     }

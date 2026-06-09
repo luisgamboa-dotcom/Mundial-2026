@@ -37,11 +37,6 @@
       const tb = document.getElementById('matchesToolbar');
       if (!tb) return;
       const teams = global.TEAMS_DATA || [];
-      const stages = [
-        { id: 'group', label: 'Fase de grupos' },
-        { id: 'ko', label: 'Eliminatorias' },
-        { id: 'final', label: 'Final' }
-      ];
 
       const groups = ['', ...Array.from({ length: 12 }, (_, i) => String.fromCharCode(65 + i))];
       const opts = (arr, allLabel) => arr.map(g => `<option value="${g}">${g ? I18n.t('sections.teams.group') + ' ' + g : allLabel}</option>`).join('');
@@ -191,11 +186,11 @@
       const venue = this.venueById(m.venue);
       const [y, mo, d] = m.date.split('-').map(Number);
       const [h, mi] = m.time.split(':').map(Number);
-      // Asumimos hora de la sede en -05:00
       const startLocal = `${m.date.replace(/-/g, '')}T${m.time.replace(':', '')}00`;
-      const endDate = new Date(Date.UTC(y, mo - 1, d, h + 5 + 2, mi)); // +2h
+      const endH = h + 2, endMi = mi;
+      const endDate = new Date(y, mo - 1, d, endH, endMi);
       const pad = n => String(n).padStart(2, '0');
-      const endLocal = `${endDate.getUTCFullYear()}${pad(endDate.getUTCMonth() + 1)}${pad(endDate.getUTCDate())}T${pad(endDate.getUTCHours())}${pad(endDate.getUTCMinutes())}00Z`;
+      const endLocal = `${endDate.getFullYear()}${pad(endDate.getMonth() + 1)}${pad(endDate.getDate())}T${pad(endDate.getHours())}${pad(endDate.getMinutes())}00`;
 
       const summary = `${t1 ? I18n.teamName(t1) : 'TBD'} vs ${t2 ? I18n.teamName(t2) : 'TBD'} - Mundial 2026`;
       const ics = [
@@ -206,7 +201,7 @@
         `UID:mundial2026-${m.id}@mundial2026.app`,
         `DTSTAMP:${startLocal}Z`,
         `DTSTART;TZID=America/Mexico_City:${startLocal}`,
-        `DTEND;TZID=America/Mexico_City:${endLocal.replace('Z', '')}`,
+        `DTEND;TZID=America/Mexico_City:${endLocal}`,
         `SUMMARY:${summary}`,
         `LOCATION:${venue ? venue.name + ', ' + venue.city[I18n.current] : 'TBD'}`,
         'END:VEVENT',

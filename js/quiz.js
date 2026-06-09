@@ -110,7 +110,7 @@
 
       const q = this.questions[i];
       const letters = ['A', 'B', 'C', 'D'];
-      const progressPct = ((i) / total) * 100;
+      const progressPct = ((i + 1) / total) * 100;
 
       c.innerHTML = `
         <div class="quiz-card">
